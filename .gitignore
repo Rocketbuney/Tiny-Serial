@@ -1,6 +1,8 @@
 # Prerequisites
 *.d
 
+tiny-serial
+
 # Object files
 *.o
 *.ko
