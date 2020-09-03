@@ -1,10 +1,15 @@
 CC = gcc
+BIN = tiny-serial
 CFLAGS = -std=c89 -Wall -pedantic
 
-default: main.o
+default: tiny-serial.c
+	$(CC) $(CFLAGS) tiny-serial.c -o $(BIN)
 
-main.o: tiny-serial.c
-	$(CC) $(CFLAGS) tiny-serial.c -o tiny-serial
+install:
+	mv $(BIN) /usr/local/bin/
+
+uninstall:
+	rm -rf /usr/local/bin/$(BIN)
 
 clean:
-	rm tiny-serial
+	rm $(BIN)
