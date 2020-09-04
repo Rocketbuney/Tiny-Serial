@@ -1,5 +1,5 @@
 # Tiny-Serial
-A small 100 loc serial monitor
+A small ≈100 loc serial monitor
 # Compiling
 I've only tested this on linux and mac, it doesnt require any dependencies besides the c standard library and linux headers.
 ```
