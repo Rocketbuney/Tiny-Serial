@@ -13,12 +13,12 @@ static void print_error() {
 }
 
 static void print_name() {
-  printf("  ______    _                                  _____                  _             __\n");
+  printf("\033[0;36m  ______    _                                  _____                  _             __\n");
   printf(" /_  __/   (_)   ____   ___    __  __         / ___/  ___    _____   (_)  ____ _   / /\n");
   printf("  / /     / /   / __ \\ / _ \\  / / / /         \\__ \\  / _ \\  / ___/  / /  / __ `/  / / \n");
   printf(" / /     / /   / / / //  __/ / /_/ /         ___/ / /  __/ / /     / /  / /_/ /  / /  \n");
   printf("/_/     /_/   /_/ /_/ \\___/  \\__, /         /____/  \\___/ /_/     /_/   \\__,_/  /_/   \n");
-  printf("                            /____/                                                   \n ");
+  printf("                            /____/ \033[0m                                                  \n ");
 }
 
 static int check_args(int argc, char **argv, int *baud) {
@@ -67,10 +67,13 @@ static int init_serial(struct termios *tty, const int fd, const int baud) {
 static void data_recv_loop(const int fd) {
   unsigned char incoming_byte = 0, outgoing_byte = 0;
 
+  setbuf(stdout, NULL);
+  
   do {
     /* if new data is available on the serial port, print it out */
-    if (read(fd, &incoming_byte, 1) > 0)
-      write(STDOUT_FILENO, &incoming_byte, 1); 
+    while (read(fd, &incoming_byte, 1) > 0) {
+      printf("\033[1;32m%c\033[0m", incoming_byte);
+    }
 
     /* if new data is available on the console, send it to the serial port */
     if (read(STDIN_FILENO, &outgoing_byte, 1) > 0 && tolower(outgoing_byte) != 'q')
