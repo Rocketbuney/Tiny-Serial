@@ -96,6 +96,8 @@ int main(int argc, char **argv) {
   if(init_serial(&tty, fd, baud) != 0)
     print_error();
   
+  printf("Connection Established.\n---------------------------------------------------------------------\n");
+
   data_recv_loop(fd);
 
   close(fd);
